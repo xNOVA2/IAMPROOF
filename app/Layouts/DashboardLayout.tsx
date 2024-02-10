@@ -10,7 +10,9 @@ export default function DashboardLayout({children}:{children:React.ReactNode}) {
         <div className="flex justify-center">
           {" "}
           {/* Add flex justify-center classes */}
+          <Link href={'/'}>
           <Image src={"/assets/logo.svg"} alt="Logo" width={150} height={200} />
+          </Link>
         </div>
         <div className="mt-6 flex flex-1 flex-col justify-between">
           <nav className="space-x-5 space-y-6 ">
@@ -18,7 +20,7 @@ export default function DashboardLayout({children}:{children:React.ReactNode}) {
               {menuItems.map((item) => (
                 <Link
                   key={item.title}
-                  className="border-[#BCD8C1] border-2 flex transform items-center rounded-lg px-3 py-4 text-center text-gray-600 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-700"
+                  className="border-[#BCD8C1] border-2 flex transform items-center rounded-lg px-2 py-4 text-center text-gray-600 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-700"
                   href={item.href}
                 >
                   <Image
@@ -27,7 +29,7 @@ export default function DashboardLayout({children}:{children:React.ReactNode}) {
                     width={24}
                     height={24}
                   />
-                  <span className="mx-2 text-sm font-medium">{item.title}</span>
+                  <span className="mx-2 text-sm ">{item.title}</span>
                 </Link>
               ))}
             </div>

@@ -57,12 +57,17 @@ export default function Home() {
             headerText="DATA CONTROL"
             subHeading="Users sharing full data:63"
           >
-            <SubHeading
-              text="Current number of premium subscribers:51"
-              bgColor="#BCD8C180"
-            />
-            <SubHeading text="Users sharing no data:20" bgColor="#BCD8C133" />
-
+            <div className="bg-[#BCD8C180] w-full text-center py-2">
+              <p>
+                Current number of premium subscribers:{" "}
+                <span className="font-bold">51</span>
+              </p>
+            </div>
+            <div className="bg-[#BCD8C133] w-full text-center py-2">
+              <p>
+                Users sharing no data:<span className="font-bold">20</span>
+              </p>
+            </div>
             <BoxButton text="Reset a user's password" href="" />
             <BoxButton text="Check user's 2 Factor Authentication" href="" />
           </Box>

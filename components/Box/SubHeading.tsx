@@ -7,7 +7,11 @@ export default function SubHeading({
 }) {
   return (
     <div className={`flex-grow  text-center py-2 bg-[${bgColor}] w-full`}>
-      {text}
+        <p>
+        {text.slice(0, -2)}
+        <strong>{text.slice(-2)}</strong>
+        </p>
+      
     </div>
   );
 }

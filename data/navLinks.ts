@@ -31,7 +31,7 @@ export const menuItems = [
     },
     {
         id: "DATA CONTROL",
-        title: "DATA CONTROL",
+        title: "DATACONTROL",
         href: "/data-center",
         logo: "/assets/DataControl.png",
     },
