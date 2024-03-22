@@ -1,78 +1,91 @@
-import Image from "next/image";
-import DashboardLayout from "./Layouts/DashboardLayout";
-import { cn } from "@/lib/utils";
-import Box from "@/components/Box/Box";
-import BoxButton from "@/components/Box/BoxButton";
-import SubHeading from "@/components/Box/SubHeading";
+'use client'
+import { login } from '@/API/auth.api';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { SigninFields } from '@/type';
+import { useMutation } from '@tanstack/react-query';
+import Image from 'next/image';
+import { toast } from "sonner"
+import React, { useState } from 'react';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { SignInSchema } from '@/validation/auth.validation';
+import { useRouter } from 'next/navigation';
 
-export default function Home() {
+export default function Page() {
+
+  const router = useRouter();
+  const [show, setShow] = useState<boolean>(false);
+  const { mutateAsync, status, } = useMutation({
+    mutationFn: login,
+  
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SigninFields>({ resolver: zodResolver(SignInSchema) });
+
+  const onSubmit: SubmitHandler<SigninFields> = async (data) => {
+    const { success, response } = await mutateAsync({
+      email: data.email,
+      password: data.password,
+    });
+    if (!success) return toast.error(response);
+    console.log(response);
+    
+    if (response.data.user.role !== "admin") return toast.error("Unauthorized access");
+    toast.success("Login success");
+    localStorage.setItem("token", response.data.accessToken);
+    router.push('/dashboard')
+  };
+
   return (
-    <DashboardLayout>
-      <div className={cn("w-full h-screen flex flex-col  ")}>
-        <div className="flex justify-between pr-10 ">
-          <Box
-            ImagePath="/assets/Directory.png"
-            headerText="DIRECTORY"
-            subHeading="Current number of users: 93"
-          >
-            <BoxButton text="Add a new user" href="" />
-            <BoxButton text="Delete a user" href="" />
-            <BoxButton text="Update a user's name" href="" />
-          </Box>
-
-          <Box ImagePath="/assets/Security.png" headerText="SECURITY">
-            <BoxButton text="Lock a user's account" href="" />
-            <BoxButton text="Reset a user's password" href="" />
-            <BoxButton text="Check user's 2 Factor Authentication" href="" />
-            <BoxButton text="View user's security questions" href="" />
-          </Box>
-        </div>
-        <div className="flex-grow border-[#BCD8C1] border-2 mt-6 mr-10  rounded-lg h-52 ">
-          <div className="flex gap-3 p-5 items-center">
-            <Image
-              src={"/assets/Reporting.png"}
-              alt=""
-              width={25}
-              height={15}
-            />
-            <h1>REPORTING</h1>
-          </div>
-        </div>
-        <div className="flex justify-between pr-10 mb-5  ">
-          <Box
-            ImagePath="/assets/Billing.png"
-            headerText="BILLING"
-            subHeading="Current number of users: 93"
-          >
-            <SubHeading
-              text="Current number of premium subscribers:51"
-              bgColor="#BCD8C180"
-            />
-            <BoxButton text="Manage subscriptions" href="" />
-            <BoxButton text="View all invoices" href="" />
-          </Box>
-
-          <Box
-            ImagePath="/assets/DataControl.png"
-            headerText="DATA CONTROL"
-            subHeading="Users sharing full data:63"
-          >
-            <div className="bg-[#BCD8C180] w-full text-center py-2">
-              <p>
-                Current number of premium subscribers:{" "}
-                <span className="font-bold">51</span>
-              </p>
-            </div>
-            <div className="bg-[#BCD8C133] w-full text-center py-2">
-              <p>
-                Users sharing no data:<span className="font-bold">20</span>
-              </p>
-            </div>
-            <BoxButton text="Reset a user's password" href="" />
-            <BoxButton text="Check user's 2 Factor Authentication" href="" />
-          </Box>
-        </div>
+    <div className='bg-gradient-to-br from-blue-900 via-cyan-600 to-green-500 min-h-screen flex items-center justify-center'>
+    <div className='w-3/5 max-w-lg bg-white rounded-lg p-8'>
+      {/* Logo */}
+      <div className="flex justify-center">
+        <Image src={'/assets/logo.svg'} alt='Logo' width={200} height={200} />
       </div>
-    </DashboardLayout>
+
+      {/* Form */}
+      <form className="mt-8 mx-16 y-4" onSubmit={handleSubmit(onSubmit)}>
+
+        {/* Username Field */}
+        <Label htmlFor="username" className='text-black text-md'>Username</Label>
+        <Input placeholder="Username" id='username' className=' py-5 focus:border-transparent' {...register("email")} />
+        {errors.email && <span className="text-red-500 mt-4">{errors.email.message as string}</span>}
+        <br />
+
+        {/* Password Field */}
+        <Label htmlFor="password" className='text-black text-md'>Password</Label>
+        <div className='relative'>
+          <Image src={'/assets/eye.png'} alt='Eye' width={20} height={20} className='absolute right-2 top-3 cursor-pointer ' onClick={() => setShow(!show)} />
+          <Input placeholder="Password" id='password' className="py-5  focus:border-transparent" type={`${show ? 'text' : 'password'}`} {...register("password")} />
+        </div>
+        {errors.password && <span className="text-red-500">{errors.password.message as string}</span>}
+        <br />
+
+        {/* Remember me checkbox */}
+        <div className="flex items-center justify-center space-x-2 mt-5">
+          <input
+            type="checkbox"
+            className="rounded p-3"
+          />
+          <Label htmlFor="terms" className="text-black text-md">Remember me</Label>
+        </div>
+
+        {/* Login button */}
+        <button className="py-3 mt-4 w-full bg-[#E8F3F5]">{status == 'pending' ? 'Loading...' : 'Log in'}</button>
+
+    
+
+      </form>
+
+      {/* Forget password link */}
+      <p className='flex justify-center underline mt-3 text-black text-md cursor-pointer'>Forget your password</p>
+    </div>
+  </div>
   );
 }
