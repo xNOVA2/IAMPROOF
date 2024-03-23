@@ -5,14 +5,14 @@ const getAccessToken = () => {
 };
 
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL, 
+  baseURL: 'https://improof-backend-production.up.railway.app/api', 
 });
 
 api.interceptors.request.use(
   async (config) => {
     const accessToken =  getAccessToken();
     
-    config.headers.Authorization = `Bearer ${accessToken}`;
+    config.headers.accessToken = `${accessToken}`;
     return config;
   },
   (error) => {

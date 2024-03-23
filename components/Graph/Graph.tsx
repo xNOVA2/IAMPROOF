@@ -1,6 +1,6 @@
 'use client'
 import React from "react";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
 const data = [
   {
@@ -13,12 +13,12 @@ const data = [
     month: "feb 2023",
     users: 30,
     premiumUsers: 13,
-    amt: 2210
+    amt: 21
   },
   {
     month: "mar 2023",
     users: 20,
-    premiumUsers: 98,
+    premiumUsers: 21,
     amt: 2290
   },
   {
@@ -103,26 +103,25 @@ const data = [
 
 export default function Graph() {
   return (
-    <BarChart
-      width={1400}
-      height={285}
-      data={data}
-      margin={{
-        top: 20,
-        right: 30,
-        left: 20,
-        bottom: 5
-      }}
-      className="rounded-lg"
-      barSize={32}
-    >
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="month" />
-      <YAxis domain={[0, 120]} />
-      <Tooltip />
-      <Bar dataKey="users" stackId="a" fill="#439A86" className="rounded-lg"/>
-      <Bar dataKey="premiumUsers" stackId="a" fill="#BCD8C1" />
-
-    </BarChart>
+    <ResponsiveContainer width="100%" height={300}>
+      <BarChart
+        data={data}
+        margin={{
+          top: 20,
+          right: 30,
+          left: 20,
+          bottom: 5
+        }}
+        className="rounded-lg"
+        barSize={32}
+      >
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey={'month'} />
+        <YAxis domain={[0, 120]} />
+        <Tooltip />
+        <Bar dataKey="users" stackId="a" fill="#439A86" className="rounded-lg" />
+        <Bar dataKey="premiumUsers" stackId="a" fill="#BCD8C1" />
+      </BarChart>
+    </ResponsiveContainer>
   );
 }

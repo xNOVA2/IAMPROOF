@@ -6,10 +6,12 @@ export default function Box({
     headerText,
     subHeading,
     children,
+    number
   }: {
     ImagePath: string;
     headerText: string;
     subHeading?: string;
+    number?:number
     children: React.ReactNode;
   }) {
     return (
@@ -19,7 +21,7 @@ export default function Box({
             <h1>{headerText}</h1>
         </div>
         <div className="flex flex-col items-center justify-center ">
-            {subHeading ? <SubHeading bgColor="#BCD8C1" text={subHeading} /> : null}
+            {subHeading ? <SubHeading bgColor="#BCD8C1" text={subHeading}  number={number}/> : null}
             {children}
         </div>
     </div>

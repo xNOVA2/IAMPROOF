@@ -2,7 +2,7 @@ export const menuItems = [
     {
         id: "Dashboard",
         title: "DASHBOARD",
-        href: "/",
+        href: "/dashboard",
         logo: "/assets/Dashboard.png",
     },
     {

@@ -1,3 +1,4 @@
+'use client'
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import Box from "@/components/Box/Box";
@@ -7,8 +8,25 @@ import DashboardLayout from "../Layouts/DashboardLayout";
 
 import { Suspense } from "react";
 import Graph from "@/components/Graph/Graph";
+import { useQuery } from "@tanstack/react-query";
+import { getDashboardData } from "@/API/dashboard.api";
 
 export default function Home() {
+    const { data, isLoading, isError } = useQuery({
+        queryKey: ["dashboard"],
+        queryFn:getDashboardData
+    });
+
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+
+    if (isError) {
+        return <div>Error fetching data</div>;
+    }
+
+    console.log();
+    
     return (
         <DashboardLayout>
             <div className={cn("w-full h-screen flex flex-col  ")}>
@@ -17,18 +35,19 @@ export default function Home() {
 
                         ImagePath="/assets/Directory.png"
                         headerText="DIRECTORY"
-                        subHeading="Current number of users: 93"
+                        subHeading="Current number of users:"
+                        number={data?.response.data[0].count}
                     >
 
                         <SubHeading
-                            text="Total permiun Subscribers:24"
+                            text="Total permiun Subscribers: -"
                             bgColor="#BCD8C180"
                         />
                         <SubHeading
-                            text="Total Active Users:52"
+                            text="Total Active Users:"
                             bgColor="#BCD8C1"
+                            number={data?.response.data[0].active}
                         />
-                        <div></div>
                     </Box>
 
                     <Box ImagePath="/assets/Security.png" headerText="SECURITY">
@@ -40,7 +59,8 @@ export default function Home() {
                                 </div>
                                 <div className="text-2xl  flex justify-center items-center h-20 py-5">Whoops</div>
                                 <SubHeading
-                                    text="Total users:50"
+                                    // number={30}
+                                    text="Total users: -"
                                     bgColor="#BCD8C1"
                                 />
                             </div>
@@ -51,7 +71,8 @@ export default function Home() {
                                 </div>
                                 <div className="text-2xl  flex justify-center items-center h-20 text-center py-5">My Fitness Pal</div>
                                 <SubHeading
-                                    text="Total users:59"
+                                    // number={30}
+                                    text="Total users: -"
                                     bgColor="#BCD8C1"
                                 />
                             </div>
@@ -62,7 +83,8 @@ export default function Home() {
                                 </div>
                                 <div className="text-2xl  flex justify-center items-center h-20 py-5">Apple Health</div>
                                 <SubHeading
-                                    text="Total users:25"
+                                    // number={30}
+                                    text="Total users: -"
                                     bgColor="#BCD8C1"
                                 />
                             </div>
@@ -71,21 +93,22 @@ export default function Home() {
 
                     </Box>
                 </div>
-                <div className="flex-grow border-[#BCD8C1] border-2 mt-6 mr-10  rounded-lg  ">
+                <div className="h-fit border-[#BCD8C1] border-2 mt-6 mr-10  rounded-lg  ">
                     <ReportingDashboard />
                 </div>
                 <div className="flex justify-between pr-10 mb-5  gap-5">
                     <Box
                         ImagePath="/assets/Billing.png"
                         headerText="BILLING"
-                        subHeading="Total revenue$:20"
+                        subHeading="Total revenue$: -"
                     >
                         <SubHeading
-                            text="Monthly subscriptions:51"
+                            // number={40}
+                            text="Monthly subscriptions: -"
                             bgColor="#BCD8C180"
                         />
                         <SubHeading
-                            text="Annual subscriptions:41"
+                            text="Annual subscriptions: -"
                             bgColor="#BCD8C1"
                         />
                         <BoxButton text="Manage subscriptions" href="" />
@@ -95,17 +118,18 @@ export default function Home() {
                     <Box
                         ImagePath="/assets/DataControl.png"
                         headerText="DATA CONTROL"
-                        subHeading="Users sharing full data:63"
+                        subHeading="Users sharing full data: -"
+                        // number={63}
                     >
                         <div className="bg-[#BCD8C180] w-full text-center py-2">
                             <p>
                                 Current number of premium subscribers:{" "}
-                                <span className="font-bold">51</span>
+                                <span className="font-bold">-</span>
                             </p>
                         </div>
                         <div className="bg-[#BCD8C133] w-full text-center py-2">
                             <p>
-                                Users sharing no data:<span className="font-bold">20</span>
+                                Users sharing no data:<span className="font-bold">-</span>
                             </p>
                         </div>
                         <BoxButton text="Reset a user's password" href="" />

@@ -6,7 +6,7 @@ import SearchBar from "@/components/Searchbar";
 export default function DashboardLayout({children}:{children:React.ReactNode}) {
   return (
     <div className="flex w-full">
-      <aside className="flex h-screen w-56 flex-col overflow-y-auto border-r bg-white px-5 py-4">
+      <aside className="flex h-screen min-w-52 flex-col overflow-y-auto border-r bg-white px-5 py-4">
         <div className="flex justify-center">
           {" "}
           {/* Add flex justify-center classes */}

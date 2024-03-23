@@ -19,7 +19,12 @@ export const TableHeading = [
     "Payment Plan",
     "Payment due",
   ];
-
+  export const TableHeading4 = [
+    " Email",
+    "DATA Opt-in",
+    "Clear User Data",
+    ""
+  ];
   export const TableData = [
     {
       name: "Ali Osaid",
