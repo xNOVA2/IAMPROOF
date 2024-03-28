@@ -5,7 +5,7 @@ const getAccessToken = () => {
 };
 
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL, 
+  baseURL: 'http://128.199.30.51:8000/api', 
 });
 
 api.interceptors.request.use(
