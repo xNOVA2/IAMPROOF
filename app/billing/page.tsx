@@ -7,7 +7,7 @@ import { TableOptions } from '@/components/TablesOptions'
 import { getAllUsers } from '@/API/dashboard.api'
 import { useQuery } from '@tanstack/react-query'
 
-export default function page() {
+export default function BillingPage() {
   const {data,isError,isLoading } = useQuery({
     queryKey:["Users"],
     queryFn:getAllUsers

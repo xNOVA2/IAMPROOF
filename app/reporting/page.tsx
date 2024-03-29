@@ -8,7 +8,7 @@ import Image from "next/image";
 //   ReportingBoxElement,
 // } from "@/components/Box/ReportBox/ReportBox";
 
-export default function page() {
+export default function Reporting() {
   return (
     <DashboardLayout> 
         <div className="w-full h-screen">
