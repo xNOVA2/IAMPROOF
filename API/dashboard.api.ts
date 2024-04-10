@@ -32,6 +32,8 @@ export const getAllUsers = async () =>{
 export const toggleBlock = async (userId:string,isActive?:boolean) =>{
   try {
     const { data } = await api.put(`/user/toggle/deactive/${userId}`,{status:isActive});
+    console.log(data);
+    
     return {
       success: true,
       response: data,
