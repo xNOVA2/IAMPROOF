@@ -10,7 +10,7 @@ import Image from "next/image";
 
 export default function Reporting() {
   return (
-    <DashboardLayout> 
+    <DashboardLayout active={"REPORTING"}> 
         <div className="w-full h-screen">
           <div className="flex flex-col gap-4 p-5">
             <div className="flex gap-4">

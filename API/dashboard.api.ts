@@ -45,3 +45,18 @@ export const toggleBlock = async (userId:string,isActive?:boolean) =>{
     };
   }
 }
+
+export const topWearables = async () =>{
+  try {
+    const { data } = await api.get(`/user/top-wearables`);
+    return {
+      success: true,
+      response: data,
+    };
+  } catch (error:any) {
+    return {
+      success: false,
+      response: error?.response?.data?.message || "Something went wrong",
+    };
+    }
+  }

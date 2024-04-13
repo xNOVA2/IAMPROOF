@@ -17,7 +17,7 @@ export default function Security() {
   if(isError) return <p>Error</p>
   
   return (
-    <DashboardLayout>
+    <DashboardLayout active={"SECURITY"}>
       <TableOptions  isUsersTableOption={false}/>
       <div className="mr-10 border-[#439A86] border-2 h-screen mt-5 rounded-xl">
         <p className="text-white font-bold  bg-[#439A86] border-[#439A86] w-full px-5 py-1 rounded-t-lg">

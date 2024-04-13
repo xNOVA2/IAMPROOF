@@ -9,26 +9,43 @@ import DashboardLayout from "../Layouts/DashboardLayout";
 import { Suspense } from "react";
 import Graph from "@/components/Graph/Graph";
 import { useQuery } from "@tanstack/react-query";
-import { getDashboardData } from "@/API/dashboard.api";
+import { getDashboardData, topWearables } from "@/API/dashboard.api";
+import { IWearableData } from "@/type";
 
 export default function Home() {
-    const { data, isLoading, isError } = useQuery({
+
+    const { data, isLoading: isLoadingDashboard, isError: isErrorDashboard } = useQuery({
         queryKey: ["dashboard"],
-        queryFn:getDashboardData
+        queryFn: getDashboardData
+    });
+    const { data: wearableData, isLoading: isLoadingWearable, isError: isErrorWearable } = useQuery({
+        queryKey: ["wearable"],
+        queryFn: topWearables
     });
 
-    if (isLoading) {
-        return <div>Loading...</div>;
+    if (isLoadingDashboard) {
+        return <div>Loading Dashboard...</div>;
     }
-
-    if (isError) {
-        return <div>Error fetching data</div>;
+    
+    if (isErrorDashboard) {
+        return <div>Error fetching Dashboard data</div>;
     }
-
-    console.log();
+    
+   
+    
+    if (isLoadingWearable) {
+        return <div>Loading Wearable data...</div>;
+    }
+    
+    if (isErrorWearable) {
+        return <div>Error fetching Wearable data</div>;
+    }
+    
+    console.log(wearableData);
+    
     
     return (
-        <DashboardLayout>
+        <DashboardLayout active={"DASHBOARD"}>
             <div className={cn("w-full h-screen flex flex-col  ")}>
                 <div className="flex justify-evenly gap-5 pr-10 ">
                     <Box
@@ -51,44 +68,28 @@ export default function Home() {
                     </Box>
 
                     <Box ImagePath="/assets/Security.png" headerText="SECURITY">
-                        <div className="flex  gap-5 ">
-                            <div className="w-52 h-56 border-2 rounded-lg">
-                                <div className="bg-[#BCD8C180] text-center p-2">
-                                    <p className="font-extrabold text-4xl">#1</p>
-                                    <p className="text-sm">INTEGRATION APP/DEVICE</p>
-                                </div>
-                                <div className="text-2xl  flex justify-center items-center h-20 py-5">Whoops</div>
-                                <SubHeading
-                                    // number={30}
-                                    text="Total users: -"
-                                    bgColor="#BCD8C1"
-                                />
-                            </div>
-                            <div className="w-52 h-56 border-2 rounded-lg">
-                                <div className="bg-[#BCD8C180] text-center p-2">
-                                    <p className="font-extrabold text-4xl">#2</p>
-                                    <p className="text-sm">INTEGRATION APP/DEVICE</p>
-                                </div>
-                                <div className="text-2xl  flex justify-center items-center h-20 text-center py-5">My Fitness Pal</div>
-                                <SubHeading
-                                    // number={30}
-                                    text="Total users: -"
-                                    bgColor="#BCD8C1"
-                                />
-                            </div>
-                            <div className="w-52 h-56 border-2 rounded-lg">
-                                <div className="bg-[#BCD8C180] text-center p-2">
-                                    <p className="font-extrabold text-4xl">#3</p>
-                                    <p className="text-sm">INTEGRATION APP/DEVICE</p>
-                                </div>
-                                <div className="text-2xl  flex justify-center items-center h-20 py-5">Apple Health</div>
-                                <SubHeading
-                                    // number={30}
-                                    text="Total users: -"
-                                    bgColor="#BCD8C1"
-                                />
-                            </div>
-                        </div>
+                    <div className="flex gap-5 ">
+    {wearableData?.response?.data && wearableData.response.data.length > 0 ? (
+        wearableData.response.data.map((wearableData: IWearableData, index: number) => (
+            <div key={index} className="w-52 h-56 border-2 rounded-lg">
+                <div className="bg-[#BCD8C180] text-center p-2">
+                    <p className="font-extrabold text-4xl">#{index+1}</p>
+                    <p className="text-sm">INTEGRATION APP/DEVICE</p>
+                </div>
+                <div className="text-2xl  flex justify-center items-center h-20 py-5">{wearableData._id}</div>
+                <SubHeading
+                    number={wearableData.count}
+                    text="Total users: "
+                    bgColor="#BCD8C1"
+                />
+            </div>
+        ))
+    ) : (
+        <div className="text-center">No information available</div>
+    )}
+</div>
+
+
 
 
                     </Box>

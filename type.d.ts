@@ -4,3 +4,8 @@ interface SiginFields {
   }
   
   export type SigninFields = z.infer<typeof SignInSchema>;
+
+  interface IWearableData {
+    _id: string;
+    count: number;
+}
