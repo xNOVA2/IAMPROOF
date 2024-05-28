@@ -7,7 +7,12 @@ interface LoginParams {
 
 export const login = async ({ email, password }: LoginParams) => {
   try {
-    const { data } = await api.post(`/auth/login`, { email, password,fcmToken:"12345567",registerType:"manual" });
+    const { data } = await api.post(`/auth/login`, {
+      email,
+      password,
+      fcmToken: "12345567",
+      // registerType: "manual",  
+    });
     return {
       success: true,
       response: data,

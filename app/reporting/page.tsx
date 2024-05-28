@@ -10,33 +10,34 @@ import Image from "next/image";
 
 export default function Reporting() {
   return (
-    <DashboardLayout active={"REPORTING"}> 
-        <div className="w-full h-screen">
-          <div className="flex flex-col gap-4 p-5">
-            <div className="flex gap-4">
-
-          <Image src={'/assets/reporting.png'} alt="Reporting Icom" width={25} height={20} />
-          <h1>Reporting</h1>
-            </div>
+    <DashboardLayout active={"REPORTING"}>
+      <div className="w-full h-screen">
+        <div className="flex flex-col gap-4 p-5">
+          <div className="flex gap-4">
+            <Image
+              src={"/assets/reporting.png"}
+              alt="Reporting Icom"
+              width={25}
+              height={20}
+            />
+            <h1>Reporting</h1>
+          </div>
           <div>
-
-          <h1 className="text-xl font-bold">1,610 <span className="text-md font-normal">hits</span></h1>
-
+            <h1 className="text-xl font-bold">
+              1,610 <span className="text-md font-normal">hits</span>
+            </h1>
           </div>
-          
-          </div>
+        </div>
         <ReportGraph />
         <div className="p-16">
-        <h1 className="font-bold text-2xl text-[#439A86]">March 3, 2024</h1>
-
+          <h1 className="font-bold text-2xl text-[#439A86]">March 3, 2024</h1>
         </div>
-
-        </div>
-        
+      </div>
     </DashboardLayout>
   );
 }
- {/* <div className="w-full h-screen">
+{
+  /* <div className="w-full h-screen">
         <div className="flex justify-end mt-4 2 gap-2">
           <button className="border-2 border-[#439A86] py-1 px-3 text-xs rounded-full text-[#439A86]">
             <Link href={""}>All users</Link>
@@ -279,4 +280,5 @@ export default function Reporting() {
             </ReportBox>
           </div>
         </div>
-      </div> */}
+      </div> */
+}
