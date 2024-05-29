@@ -1,5 +1,5 @@
-'use client'
-import React, { useState } from 'react'
+"use client";
+import React, { useState } from "react";
 import {
   Table,
   TableBody,
@@ -8,13 +8,21 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
-import { TableRowData2 } from '@/types/types';
-import { Trash } from 'lucide-react';
-import Image from 'next/image';
-import UserDialog from './UserDialog/UserDialog';
-import { Dialog, DialogTrigger } from './ui/dialog';
-export default function BillingTable({ TableHeading, TableData, isDataCenterPage }: { TableHeading: string[], TableData: TableRowData2[], isDataCenterPage?: boolean }) {
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { TableRowData2 } from "@/types/types";
+import { Trash } from "lucide-react";
+import Image from "next/image";
+import UserDialog from "./UserDialog/UserDialog";
+import { Dialog, DialogTrigger } from "./ui/dialog";
+export default function BillingTable({
+  TableHeading,
+  TableData,
+  isDataCenterPage,
+}: {
+  TableHeading: string[];
+  TableData: TableRowData2[];
+  isDataCenterPage?: boolean;
+}) {
   const [selectAll, setSelectAll] = useState(false);
   const [selectedRows, setSelectedRows] = useState([]);
 
@@ -77,58 +85,91 @@ export default function BillingTable({ TableHeading, TableData, isDataCenterPage
                     <DialogTrigger asChild>
                       <Avatar className="cursor-pointer">
                         <AvatarImage src={row.photo} alt="@shadcn" />
-                        <AvatarFallback><Image src={'/assets/dummy.jpeg'}  width={40} height={40} alt="User Dummy Picture"/></AvatarFallback>
+                        <AvatarFallback>
+                          <Image
+                            src={"/assets/dummy.jpeg"}
+                            width={40}
+                            height={40}
+                            alt="User Dummy Picture"
+                          />
+                        </AvatarFallback>
                       </Avatar>
                     </DialogTrigger>
-                    {!isDataCenterPage ?
-                        <UserDialog
-                        profileImageUrl={`${row.photo || '/assets/dummy.jpeg'}`}
+                    {!isDataCenterPage ? (
+                      <UserDialog
+                        profileImageUrl={`${row.photo || "/assets/dummy.jpeg"}`}
                         userInfo={{
-                          userName: `${row.firstName} ${' '} ${row.lastName}`,
+                          userId: row._id,
+                          userName: row.name,
                           subscriptionStatus: "Premium",
                         }}
                         additionalData={{
-                          "EMAIL": row.email,
-                          "SUBSCRIPTION STATUS": row.isActive ? "ACTIVE" : "DEACTIVE",
+                          EMAIL: row.email,
+                          "SUBSCRIPTION STATUS": row.isActive
+                            ? "ACTIVE"
+                            : "DEACTIVE",
                           "PAYMENT PLAN": "-",
                           "BILLING ADDRESS": "-",
                         }}
-                      ></UserDialog> :
-           
-                    <UserDialog
-                    profileImageUrl={`${row.photo || '/assets/dummy.jpeg'}`}
-                    userInfo={{
-                      userName: `${row.firstName} ${' '} ${row.lastName}`,
-                        subscriptionStatus: "Premium",
-                      }}
-                      additionalData={{
-                        "EMAIL": row.email,
-                        "DATA OPT-IN": row.isActive ? "ACTIVE" : "DEACTIVE",
-                        "DATA SHARING PARTNER": "-",
-                        "SHARING PRVILEGES": "-",
-                      }}
-                    />
-                  }
+                      ></UserDialog>
+                    ) : (
+                      <UserDialog
+                        profileImageUrl={`${row.photo || "/assets/dummy.jpeg"}`}
+                        userInfo={{
+                          userId: row._id,
+                          userName: row.name,
+                          subscriptionStatus: "Premium",
+                        }}
+                        additionalData={{
+                          EMAIL: row.email,
+                          "DATA OPT-IN": row.isActive ? "ACTIVE" : "DEACTIVE",
+                          "DATA SHARING PARTNER": "-",
+                          "SHARING PRVILEGES": "-",
+                        }}
+                      />
+                    )}
                   </Dialog>
-                  <p>{row.firstName +" "+ row.lastName}</p>
+                  <p>{row.name}</p>
                 </div>
               </div>
             </TableCell>
             <TableCell className="w-60">{row.email}</TableCell>
             <TableCell>
-              <div >
-                <div className="bg-[#439A86] text-start py-1 inline-block p-2 font-bold text-white rounded-full text-md">{isDataCenterPage ? row.isActive ? 'ACTIVE' : 'DEACTIVE' : row.isActive ? 'ACTIVE' : 'DEACTIVE'} </div>
+              <div>
+                <div className="bg-[#439A86] text-start py-1 inline-block p-2 font-bold text-white rounded-full text-md">
+                  {isDataCenterPage
+                    ? row.isActive
+                      ? "ACTIVE"
+                      : "DEACTIVE"
+                    : row.isActive
+                    ? "ACTIVE"
+                    : "DEACTIVE"}{" "}
+                </div>
               </div>
             </TableCell>
             <TableCell className="">
-              {isDataCenterPage ? <Trash className='ml-5' /> : row.paymentPlan || '-'}
+              {isDataCenterPage ? (
+                <Trash className="ml-5" />
+              ) : (
+                row.paymentPlan || "-"
+              )}
             </TableCell>
-            <TableCell className="  text-[#439A86] ">{isDataCenterPage ? <Image src="/assets/dots.png" width={6} height={10} alt='' className='ml-10' /> : row.paymentDue || '-'}  </TableCell>
+            <TableCell className="  text-[#439A86] ">
+              {isDataCenterPage ? (
+                <Image
+                  src="/assets/dots.png"
+                  width={6}
+                  height={10}
+                  alt=""
+                  className="ml-10"
+                />
+              ) : (
+                row.paymentDue || "-"
+              )}{" "}
+            </TableCell>
           </TableRow>
         ))}
-
-
       </TableBody>
     </Table>
-  )
+  );
 }
