@@ -2,11 +2,6 @@ import React from "react";
 import DashboardLayout from "../Layouts/DashboardLayout";
 import ReportGraph from "@/components/ReportGraph/ReportGraph";
 import Image from "next/image";
-// import Link from "next/link";
-// import {
-//   ReportBox,
-//   ReportingBoxElement,
-// } from "@/components/Box/ReportBox/ReportBox";
 
 export default function Reporting() {
   return (
@@ -21,7 +16,7 @@ export default function Reporting() {
         <div className="flex flex-col gap-4 p-5">
           <div className="flex gap-4">
             <Image
-              src={"/assets/reporting.png"}
+              src={"/assets/reporting.svg"}
               alt="Reporting Icom"
               width={25}
               height={20}
