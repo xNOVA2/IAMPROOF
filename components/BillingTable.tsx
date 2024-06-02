@@ -14,6 +14,7 @@ import { Trash } from "lucide-react";
 import Image from "next/image";
 import UserDialog from "./UserDialog/UserDialog";
 import { Dialog, DialogTrigger } from "./ui/dialog";
+
 export default function BillingTable({
   TableHeading,
   TableData,
@@ -44,16 +45,16 @@ export default function BillingTable({
     }
   };
   return (
-    <Table className="mt-3">
+    <Table className="mt-3 max-h-[75vh] overflow-y-auto">
       <TableHeader>
         <TableRow className="bg-[#BCD8C1] bg-opacity-50 hover:bg-opacity-50 hover:bg-[#BCD8C1]  w-full rounded-sm h-5">
-          <TableHead className="   w-52">
+          <TableHead className="w-52">
             <div className="flex items-center gap-6">
               <input
                 type="checkbox"
                 id="name"
                 checked={selectAll}
-                className="h-4 w-4 rounded-3xl shadow checked:bg-[#439A86]  focus:ring-0 checked:text-[#439A86]"
+                className="shadow checked:bg-[#439A86]  focus:ring-0 checked:text-[#439A86]"
                 onChange={() => setSelectAll(!selectAll)}
               />
 
@@ -63,13 +64,13 @@ export default function BillingTable({
             </div>
           </TableHead>
           {TableHeading.map((heading, index) => (
-            <TableHead key={index} className="font-bold">
+            <TableHead key={index} className="font-bold ">
               {heading}
             </TableHead>
           ))}
         </TableRow>
       </TableHeader>
-      <TableBody>
+      <TableBody className="px-28">
         {TableData.map((row, index) => (
           <TableRow key={index}>
             <TableCell className="w-52">
@@ -78,7 +79,7 @@ export default function BillingTable({
                   type="checkbox"
                   checked={selectAll || selectedRows.includes(index as never)}
                   onChange={() => handleCheckboxChange(index)}
-                  className="h-4 w-4 rounded-3xl shadow checked:bg-[#439A86] focus:ring-0 checked:text-[#439A86]"
+                  className="h-4 w-4  shadow checked:bg-[#439A86] focus:ring-0 checked:text-[#439A86]"
                 />
                 <div className="flex gap-2 items-center">
                   <Dialog>
@@ -99,7 +100,7 @@ export default function BillingTable({
                       <UserDialog
                         profileImageUrl={`${row.photo || "/assets/dummy.jpeg"}`}
                         userInfo={{
-                          userId: row._id,
+                          userId: row._id || '',
                           userName: row.name,
                           subscriptionStatus: "Premium",
                         }}
@@ -133,7 +134,7 @@ export default function BillingTable({
                 </div>
               </div>
             </TableCell>
-            <TableCell className="w-60">{row.email}</TableCell>
+            <TableCell className="">{row.email}</TableCell>
             <TableCell>
               <div>
                 <div className="bg-[#439A86] text-start py-1 inline-block p-2 font-bold text-white rounded-full text-md">
@@ -149,9 +150,17 @@ export default function BillingTable({
             </TableCell>
             <TableCell className="">
               {isDataCenterPage ? (
-                <Trash className="ml-5" />
+                <Image
+                  src="/assets/trash.svg"
+                  width={15}
+                  height={10}
+                  alt=""
+                  className="ml-10"
+                />
               ) : (
-                row.paymentPlan || "-"
+                <p className="px-10">
+                  {row.paymentPlan || "-"}
+                </p>
               )}
             </TableCell>
             <TableCell className="  text-[#439A86] ">
@@ -164,12 +173,15 @@ export default function BillingTable({
                   className="ml-10"
                 />
               ) : (
-                row.paymentDue || "-"
+                <p className="px-10">
+                {row.paymentDue || "-"}
+              </p>
               )}{" "}
             </TableCell>
           </TableRow>
         ))}
       </TableBody>
     </Table>
+  
   );
 }

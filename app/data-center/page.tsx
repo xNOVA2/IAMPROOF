@@ -24,14 +24,21 @@ export default function DataCenter({
   return (
     <DashboardLayout active={"DATA CONTROL"}>
       {isLoading ? (
-        <div className="center w-full h-[80vh]">
+        <div className="flex justify-center items-center w-full h-[80vh]">
           <Loader />
         </div>
       ) : (
-        <>
+        <div
+          className="w-full min-h-screen flex flex-col"
+          style={{
+            transform: "scale(0.8)",
+            transformOrigin: "top left",
+            width: "125%", // Adjust width to counteract scaling
+          }}
+        >
           <TableOptions isUsersTableOption={false} />
-          <div className="mr-10 border-[#439A86] border-2 max-h-[90vh] mt-5 rounded-xl">
-            <p className="text-white font-bold  bg-[#439A86] border-[#439A86] w-full px-5 py-1 rounded-t-lg">
+          <div className="mr-10 border-[#439A86] border-2  mt-5 rounded-xl">
+            <p className="text-white font-bold bg-[#439A86] border-[#439A86] w-full px-5 py-1 rounded-t-lg">
               Users |{" "}
               <span className="text-sm font-normal">Showing all users</span>
             </p>
@@ -51,7 +58,7 @@ export default function DataCenter({
               />
             </div>
           </div>
-        </>
+        </div>
       )}
     </DashboardLayout>
   );

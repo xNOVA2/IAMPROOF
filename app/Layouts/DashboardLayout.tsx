@@ -12,7 +12,7 @@ export default function DashboardLayout({
 }) {
   return (
     <div className="flex w-full">
-      <aside className="sticky top-0 left-0 flex h-screen min-w-52 flex-col overflow-y-auto border-r bg-white px-5 py-4">
+      <aside className="sticky top-0 left-0 flex h-screen min-w-52 flex-col overflow-y-auto border-r bg-white px-3 py-4">
         <div className="flex justify-center">
           <Link href={"/"}>
             <Image
@@ -24,12 +24,12 @@ export default function DashboardLayout({
           </Link>
         </div>
         <div className="mt-6 flex flex-1 flex-col justify-between">
-          <nav className="space-x-5 space-y-6 ">
-            <div className="space-y-3 ">
+          <nav className="space-x-5 space-y-3">
+            <div className="space-y-2">
               {menuItems.map((item) => (
                 <Link
                   key={item.title}
-                  className={`border-[#BCD8C1] border-2 flex transform items-center rounded-lg px-2 py-4 text-center text-gray-600 transition-colors duration-300 ${
+                  className={`border-[#BCD8C1] border-2 flex transform items-center rounded-lg px-2 py-2 text-center text-gray-600 transition-colors duration-300 ${
                     String(active) === item.id ? "bg-gray-100" : null
                   } hover:text-gray-700`}
                   href={item.href}
@@ -40,7 +40,7 @@ export default function DashboardLayout({
                     width={24}
                     height={24}
                   />
-                  <span className="mx-2 text-sm ">{item.title}</span>
+                  <span className="mx-2 text-xs py-2">{item.title}</span>
                 </Link>
               ))}
             </div>

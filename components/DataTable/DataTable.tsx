@@ -71,8 +71,7 @@ const DataTable = ({
   };
 
   return (
-    <div className="max-h-[75vh] overflow-y-auto">
-      <Table className="mt-3">
+      <Table className="mt-3 max-h-[75vh] overflow-y-auto">
         <TableHeader>
           <TableRow className="bg-[#BCD8C1] bg-opacity-50 hover:bg-opacity-50 hover:bg-[#BCD8C1]  w-full rounded-sm h-5">
             <TableHead className="w-52">
@@ -101,9 +100,9 @@ const DataTable = ({
           {TableData &&
             TableData.length > 0 &&
             TableData.map((row: TableRowData, index) => (
-              <TableRow key={index}>
-                <TableCell className="w-52">
-                  <div className="flex items-center gap-6">
+              <TableRow key={index} className="">
+                <TableCell className="">
+                  <div className="flex items-center gap-6 ">
                     <input
                       type="checkbox"
                       checked={
@@ -173,11 +172,11 @@ const DataTable = ({
                     </div>
                   </div>
                 </TableCell>
-                <TableCell className="w-60">{row.email}</TableCell>
+                <TableCell className="">{row.email}</TableCell>
                 <TableCell>
-                  <div>
+                  <div className="text-wrap">
                     {isSecurityPage ? (
-                      row.SecondaryEmail || "-"
+                      row.email || "-"
                     ) : (
                       <div className="bg-[#439A86] text-start py-1 inline-block p-2 font-bold text-white rounded-full text-md">
                         {row.isActive ? "ACTIVE" : "DEACTIVATED"}
@@ -189,7 +188,7 @@ const DataTable = ({
                   <div
                     className={`${
                       row["2-Factor"] ? "bg-[#439A86] text-white " : null
-                    } text-start py-1 inline-block p-2 font-bold rounded-full text-md`}
+                    } text-start py-1 inline-block p-2 font-bold px-5 rounded-full text-md`}
                   >
                     {isSecurityPage
                       ? row["2-Factor"] || "-"
@@ -203,14 +202,16 @@ const DataTable = ({
                 >
                   {" "}
                   {isSecurityPage ? (
-                    <Link className="underline text-center " href={""}>
+                    <Link className="underline text-center" href={""}>
                       send link
                     </Link>
                   ) : (
-                    row.lastSignIn || "-"
+                    <p className="px-8">
+                      {row.lastSignIn || "-"} 
+                    </p>
                   )}
                 </TableCell>
-                <TableCell className="">
+                <TableCell className="px-10">
                   {isSecurityPage ? (
                     <BlockToggle userId={row._id} isActive={row.isActive!} />
                   ) : (
@@ -221,7 +222,6 @@ const DataTable = ({
             ))}
         </TableBody>
       </Table>
-    </div>
   );
 };
 
@@ -233,45 +233,45 @@ function ManageAccount({ index, userId }: { index: number; userId: string }) {
       toast.success(
         `${
           status
-            ? " User Account has been unlocked sucessfully"
+            ? " User Account has been unlocked successfully"
             : "User Account has been locked successfully"
-        }  `
+        }`
       );
   };
 
   return (
-    <div className="flex justify-center pt-10 gap-5">
+    <div className="flex justify-center pt-6 gap-3">
       <p
         key={index}
-        className="border-[#BCD8C1] border-2 flex transform items-center rounded-lg px-10 py-3 text-center text-[#439A86] font-bold text-lg transition-colors duration-300 bg-gray-100 "
+        className="border-[#BCD8C1] border-2 flex transform items-center rounded-lg px-4 py-2 text-center text-[#439A86] font-bold text-sm transition-colors duration-300 bg-gray-100"
       >
-        <span className="mx-2 text-sm">RESET PASSWORD</span>
+        <span className="mx-1 text-xs">RESET PASSWORD</span>
       </p>
       <p
         key={index}
-        className="border-[#BCD8C1] border-2 flex transform items-center rounded-lg px-10 py-3 text-center text-[#439A86] font-bold text-lg transition-colors duration-300 bg-gray-100 cursor-pointer"
+        className="border-[#BCD8C1] border-2 flex transform items-center rounded-lg px-4 py-2 text-center text-[#439A86] font-bold text-sm transition-colors duration-300 bg-gray-100 cursor-pointer"
         onClick={() => toggleBlockUser(false)}
       >
         <Image
           src={"/assets/lock.png"}
           alt="Lock Account"
-          width={25}
-          height={25}
+          width={20}
+          height={20}
         />
-        <span className="mx-2 text-sm"> LOCK ACCOUNT</span>
+        <span className="mx-1 text-xs">LOCK ACCOUNT</span>
       </p>
       <p
         key={index}
-        className="border-[#BCD8C1] border-2 flex transform items-center rounded-lg px-10 py-3 text-center text-[#439A86] font-bold text-lg transition-colors duration-300 bg-gray-100  cursor-pointer"
+        className="border-[#BCD8C1] border-2 flex transform items-center rounded-lg px-4 py-2 text-center text-[#439A86] font-bold text-sm transition-colors duration-300 bg-gray-100 cursor-pointer"
         onClick={() => toggleBlockUser(true)}
       >
         <Image
           src={"/assets/unlock.png"}
           alt="Unlock Account"
-          width={25}
-          height={25}
+          width={20}
+          height={20}
         />
-        <span className="mx-2 text-sm">UNLOCK ACCOUNT</span>
+        <span className="mx-1 text-xs">UNLOCK ACCOUNT</span>
       </p>
     </div>
   );

@@ -42,15 +42,25 @@ export default function Page() {
   };
 
   return (
-    <div className="bg-gradient-to-br from-blue-900 via-cyan-600 to-green-500 min-h-screen flex items-center justify-center">
-      <div className="w-3/5 max-w-lg bg-white rounded-lg p-8">
+    <div 
+    style={{
+      scale:"1.0",
+      width: "100%", 
+    }}>
+
+    <div className="bg-gradient-to-br from-blue-900 via-cyan-600 to-green-500 min-h-screen flex items-center justify-center p-4 sm:p-8"
+   
+    >
+      <div className="w-full sm:w-3/4 lg:w-1/2 xl:w-1/3 bg-white rounded-lg p-6 sm:p-8"
+      
+      >
         {/* Logo */}
         <div className="flex justify-center">
           <Image src={"/assets/logo.svg"} alt="Logo" width={200} height={200} />
         </div>
 
         {/* Form */}
-        <form className="mt-8 mx-16 y-4" onSubmit={handleSubmit(onSubmit)}>
+        <form className="mt-8 mx-4 sm:mx-8" onSubmit={handleSubmit(onSubmit)}>
           {/* Username Field */}
           <Label htmlFor="username" className="text-black text-md">
             Username
@@ -58,11 +68,11 @@ export default function Page() {
           <Input
             placeholder="Username"
             id="username"
-            className=" py-5 focus:border-transparent"
+            className="w-full py-2 sm:py-3 focus:border-transparent"
             {...register("email")}
           />
           {errors.email && (
-            <span className="text-red-500 mt-4">
+            <span className="text-red-500 mt-1 sm:mt-2">
               {errors.email.message as string}
             </span>
           )}
@@ -78,43 +88,44 @@ export default function Page() {
               alt="Eye"
               width={20}
               height={20}
-              className="absolute right-2 top-3 cursor-pointer "
+              className="absolute right-2 top-3 sm:top-4 cursor-pointer "
               onClick={() => setShow(!show)}
             />
             <Input
               placeholder="Password"
               id="password"
-              className="py-5  focus:border-transparent"
+              className="w-full py-2 sm:py-3 focus:border-transparent"
               type={`${show ? "text" : "password"}`}
               {...register("password")}
             />
           </div>
           {errors.password && (
-            <span className="text-red-500">
+            <span className="text-red-500 mt-1 sm:mt-2">
               {errors.password.message as string}
             </span>
           )}
           <br />
 
           {/* Remember me checkbox */}
-          <div className="flex items-center justify-center space-x-2 mt-5">
-            <input type="checkbox" className="rounded p-3" />
+          <div className="flex items-center justify-center space-x-2 mt-3 sm:mt-4">
+            <input type="checkbox" className="rounded p-1 sm:p-2" />
             <Label htmlFor="terms" className="text-black text-md">
               Remember me
             </Label>
           </div>
 
           {/* Login button */}
-          <button className="py-3 mt-4 w-full bg-[#E8F3F5]">
+          <button className="py-2 sm:py-3 mt-3 sm:mt-4 w-full bg-[#E8F3F5]">
             {status == "pending" ? "Loading..." : "Log in"}
           </button>
         </form>
 
         {/* Forget password link */}
-        <p className="flex justify-center underline mt-3 text-black text-md cursor-pointer">
+        <p className="flex justify-center underline mt-3 sm:mt-4 text-black text-md cursor-pointer">
           Forget your password
         </p>
       </div>
+    </div>
     </div>
   );
 }

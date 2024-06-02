@@ -26,6 +26,7 @@ export interface TableRowData2 {
   lastName: string;
   isActive?: boolean;
   photo?: string;
+  _id:string
 }
 
 export interface PaginationTypes {

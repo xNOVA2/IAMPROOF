@@ -5,7 +5,6 @@ import Box from "@/components/Box/Box";
 import BoxButton from "@/components/Box/BoxButton";
 import SubHeading from "@/components/Box/SubHeading";
 import DashboardLayout from "../Layouts/DashboardLayout";
-
 import { Suspense } from "react";
 import Graph from "@/components/Graph/Graph";
 import { useQuery } from "@tanstack/react-query";
@@ -31,15 +30,24 @@ export default function Home() {
     queryFn: topWearables,
   });
 
+  console.log("wearableData", wearableData);
+
   return (
     <DashboardLayout active={"DASHBOARD"}>
       {isLoadingDashboard || isLoadingWearable ? (
-        <div className="center w-full h-[80vh]">
+        <div className="flex justify-center items-center w-full h-[80vh]">
           <Loader />
         </div>
       ) : (
-        <div className={cn("w-full min-h-screen flex flex-col")}>
-          <div className="flex justify-evenly gap-5 pr-10 ">
+        <div
+          className="w-full min-h-screen flex flex-col"
+          style={{
+            transform: "scale(0.8)",
+            transformOrigin: "top left",
+            width: "125%", // Adjust width to counteract scaling
+          }}
+        >
+          <div className="flex flex-col lg:flex-row justify-evenly gap-5 pr-10">
             {!isLoadingDashboard && (
               <Box
                 ImagePath="/assets/Directory.png"
@@ -48,7 +56,7 @@ export default function Home() {
                 number={data?.response?.data?.[0].count}
               >
                 <SubHeading
-                  text="Total permiun Subscribers: -"
+                  text="Total premium Subscribers: -"
                   bgColor="#BCD8C180"
                 />
                 <SubHeading
@@ -60,14 +68,14 @@ export default function Home() {
             )}
 
             <Box ImagePath="/assets/Security.png" headerText="SECURITY">
-              <div className="flex gap-5 ">
+              <div className="flex gap-5 flex-wrap">
                 {!isLoadingWearable &&
                 wearableData?.response?.data &&
                 wearableData.response.data.length > 0 ? (
                   wearableData.response.data.map(
                     (wearableData: IWearableData, index: number) => (
                       <div
-                        key={index}
+                        key={wearableData._id}
                         className="w-52 h-56 border-2 rounded-lg"
                       >
                         <div className="bg-[#BCD8C180] text-center p-2">
@@ -76,8 +84,8 @@ export default function Home() {
                           </p>
                           <p className="text-sm">INTEGRATION APP/DEVICE</p>
                         </div>
-                        <div className="text-2xl  flex justify-center items-center h-20 py-5">
-                          {index === 0 ? "" : wearableData._id}
+                        <div className="text-2xl flex justify-center items-center h-20 py-5">
+                          {wearableData._id}
                         </div>
                         <SubHeading
                           number={wearableData.count}
@@ -88,22 +96,22 @@ export default function Home() {
                     )
                   )
                 ) : (
-                  <div className="text-center">No information available</div>
+                  <div className="text-center w-full">No information available</div>
                 )}
               </div>
             </Box>
           </div>
-          <div className="h-fit border-[#BCD8C1] border-2 mt-6 mr-10  rounded-lg  ">
+          <div className="h-fit border-[#BCD8C1] border-2 mt-6 mr-10 rounded-lg">
             <ReportingDashboard />
           </div>
-          <div className="flex justify-between pr-10 mb-5 gap-5">
+          <div className="flex flex-col lg:flex-row justify-between pr-10 mb-5 gap-5">
             <Box
               ImagePath="/assets/Billing.png"
               headerText="BILLING"
-              subHeading="Total revenue$: -"
+              subHeading="Total revenue: $0"
             >
               <SubHeading
-                // number={40}
+                number={40}
                 text="Monthly subscriptions: -"
                 bgColor="#BCD8C180"
               />
@@ -146,8 +154,7 @@ function ReportingDashboard({}) {
         <Image src={"/assets/Reporting.png"} alt="" width={25} height={15} />
         <h1>REPORTING</h1>
       </div>
-
-      <div className=" ">
+      <div>
         <Suspense fallback={<div>loading... </div>}>
           <Graph />
         </Suspense>

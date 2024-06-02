@@ -14,16 +14,17 @@ export const TableHeading = [
     "Lock Account",
   ];
   export const TableHeading3 = [
-    " Email",
+    "Email",
     "Subscription Status",
     "Payment Plan",
     "Payment due",
   ];
   export const TableHeading4 = [
-    " Email",
+    "Email",
     "DATA Opt-in",
     "Clear User Data",
-    ""
+    "Adjust Privileges",
+
   ];
   export const TableData = [
     {
