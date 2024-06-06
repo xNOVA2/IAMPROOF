@@ -5,7 +5,7 @@ const getAccessToken = () => {
 };
 
 const api = axios.create({
-  baseURL: " http://64.23.247.3:8000/api",
+  baseURL: "http://64.23.247.3:8000/api",
 });
 api.interceptors.request.use(
   async (config) => {
