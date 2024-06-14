@@ -160,7 +160,7 @@ const DataTable = ({
                               "SUBSCRIPTION STATUS": row.isActive
                                 ? "ACTIVE"
                                 : "DEACTIVATED",
-                              "ACCOUNT TYPE": row.role?.toUpperCase(),
+                              "ACCOUNT TYPE": <div className="bg-[#439A86] text-start py-1 inline-block p-2 font-bold text-white rounded-full text-md">{row.role?.toUpperCase()}</div>,
                               "LAST SIGN IN": "-",
                               "DATA USAGE": "-",
                             }}
@@ -192,7 +192,7 @@ const DataTable = ({
                   >
                     {isSecurityPage
                       ? row["2-Factor"] || "-"
-                      : row.role?.toUpperCase()}
+                      : <div className="bg-[#439A86] text-start py-1 inline-block p-2 font-bold text-white rounded-full text-md">{row.role?.toUpperCase()}</div> }
                   </div>
                 </TableCell>
                 <TableCell

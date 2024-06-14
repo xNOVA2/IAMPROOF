@@ -173,8 +173,8 @@ export default function BillingTable({
                   className="ml-10"
                 />
               ) : (
-                <p className="px-10">
-                {row.paymentDue || "-"}
+                <p className="">
+                {row.paymentDue || <p className="underline">view billing info</p>}
               </p>
               )}{" "}
             </TableCell>
