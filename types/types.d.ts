@@ -44,4 +44,12 @@ export interface SearchParams {
   limit: number;
   page: number;
   userId?: string;
+  search:string
+}
+
+export interface RegisterType {
+  email: string;
+  password: string;
+  firstName:string;
+  lastName:string
 }

@@ -7,6 +7,7 @@ const getAccessToken = () => {
 const api = axios.create({
   baseURL: "https://backend.improof.health/api",
 });
+// https://backend.improof.health/api
 api.interceptors.request.use(
   async (config) => {
     const accessToken = getAccessToken();

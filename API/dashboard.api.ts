@@ -17,13 +17,15 @@ export const getDashboardData = async () => {
 export const getAllUsers = async ({
   limit,
   page,
+  search
 }: {
   limit: number;
   page: number;
+  search:string;
 }) => {
   try {
     const { data } = await api.get(
-      `/user/all-users?limit=${limit || 10}&page=${page || 1}`
+      `/user/all-users?limit=${limit || 10}&page=${page || 1}&search=${search || ""}`
     );
     return {
       success: true,
@@ -70,3 +72,20 @@ export const topWearables = async () => {
     };
   }
 };
+
+export const registerSubAdmin = async (data: any) => {
+  data.fcmToken = "fcmToken"; // required field
+  try {
+    const response = await api.post(`/auth/register`, data);
+    return {
+      success: true,
+      response: response.data,
+    };
+  } catch (error: any) {
+    console.log(error);
+    return {
+      success: false,
+      response: error?.response?.data?.message || "Something went wrong",
+    };
+  }
+}

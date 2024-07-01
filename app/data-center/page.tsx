@@ -15,10 +15,10 @@ export default function DataCenter({
 }: {
   searchParams: SearchParams;
 }) {
-  const { limit, page } = searchParams;
+  const { limit, page,search } = searchParams;
   const { data, isLoading } = useQuery({
-    queryKey: ["Users", page, limit],
-    queryFn: () => getAllUsers({ limit, page }),
+    queryKey: ["Users", page, limit,search],
+    queryFn: () => getAllUsers({ limit, page,search }),
   });
 
   return (

@@ -33,8 +33,6 @@ export default function Page() {
     });
     if (!success) return toast.error(response);
 
-    if (response.data.user.role !== "admin")
-      return toast.error("Unauthorized access");
     toast.success("Login success");
     localStorage.setItem("token", response.data.accessToken);
     Cookies.set("accessToken", response.data.accessToken, { expires: 7 });

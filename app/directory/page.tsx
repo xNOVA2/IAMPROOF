@@ -15,10 +15,10 @@ export default function Directory({
 }: {
   searchParams: SearchParams;
 }) {
-  const { limit, page, userId } = searchParams;
+  const { limit, page, userId,search } = searchParams;
   const { data, isLoading } = useQuery({
-    queryKey: ["Users", page, limit],
-    queryFn: () => getAllUsers({ limit, page }),
+    queryKey: ["Users", page, limit,search],
+    queryFn: () => getAllUsers({ limit, page,search }),
   });
 
   return (
