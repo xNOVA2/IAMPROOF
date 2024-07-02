@@ -2,6 +2,7 @@ import { menuItems } from "@/data/navLinks";
 import Image from "next/image";
 import Link from "next/link";
 import SearchBar from "@/components/Searchbar";
+import { Suspense } from "react";
 
 export default function DashboardLayout({
   children,
@@ -49,7 +50,9 @@ export default function DashboardLayout({
       </aside>
 
       <div className="flex flex-col px-5 py-8 w-full min-h-screen">
+      <Suspense fallback={<div>Loading...</div>}>
         <SearchBar />
+      </Suspense>
         {children}
       </div>
     </div>
